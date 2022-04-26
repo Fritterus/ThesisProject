@@ -1,0 +1,31 @@
+﻿@model IEnumerable<CarSharing.Entities.User>
+@{
+    ViewBag.Title = "Список пользователей";
+}
+
+<div class="card">
+    <div class="card-body">
+    </div>
+    <h2 class="card-header">Users list</h2>
+    <table class="table">
+        @foreach (var user in Model)
+        {
+            @if(user.UserName != "admin@gmail.com") {
+                <tr>
+                    <td>@user.Email</td>
+                    <td>
+                        <form asp-action="Delete" asp-route-id="@user.Id" method="post">
+                            <a class="btn btn-sm btn-warning text-white" asp-controller="RolesPage" asp-action="Edit" asp-route-userid="@user.Id">Edit Role</a>
+                            <button type="submit" class="btn btn-sm btn-danger">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+    <div class="card-header">
+        <a class="btn btn-primary" asp-action="AddUser">Add user</a>
+    </div>
+</div>

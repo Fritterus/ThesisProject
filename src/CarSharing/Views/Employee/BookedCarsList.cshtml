@@ -1,0 +1,36 @@
+﻿@model IEnumerable<CarSharing.Models.CarListViewModel>
+
+<h3 class="text-center bg-light box-shadow">Booked cars</h3>
+<div>
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                @if (item.Status == 2)
+                {
+                    <div class="col-auto" style="margin-bottom:30px;">
+                        <div class="p-0 border rounded-lg shadow-sm bg-white text-center">
+                            <a href="#" class="text-dark" style="text-decoration: none">
+                                @Html.HiddenFor(model => item.CarId)
+                                @Html.HiddenFor(model => item.Cost)
+                                <img src="~/images/@item.ImageURL" style="width:243px; height:162px;" />
+                                <h5>@item.MarkName @item.ModelName</h5>
+                                <span>Release date: @item.ReleaseDate</span><br />
+                                <span>Price: @item.Cost €/day</span>
+                            </a>
+                        </div>
+
+                        @if (User.IsInRole("Employee"))
+                        {
+                            <a asp-controller="Employee" asp-action="Reset" asp-route-id="@item.CarId" class="btn btn-success" style="width:243px;">Reset Car</a>
+                        }
+                        else
+                        {
+                            <a href="#" class="btn btn-danger" style="width:243px;"></a>
+                        }
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>

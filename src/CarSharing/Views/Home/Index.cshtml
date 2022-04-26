@@ -1,0 +1,39 @@
+﻿@model IEnumerable<CarSharing.Models.CarListViewModel>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+<h3 class="text-center bg-light box-shadow">Available cars</h3>
+<div>
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                @if (item.Status != 2)
+                {
+                    <div class="col-auto" style="margin-bottom:30px;">
+                        <div class="p-0 border rounded-lg shadow-sm bg-white text-center">
+                            <a href="#" class="text-dark" style="text-decoration: none">
+                                @Html.HiddenFor(model => item.CarId)
+                                @Html.HiddenFor(model => item.Cost)
+                                <img src="~/images/@item.ImageURL" style="width:243px; height:162px;" />
+                                <h5>@item.MarkName @item.ModelName</h5>
+                                <span>Release date: @item.ReleaseDate</span><br />
+                                <span>Price: @item.Cost €/day</span>
+                            </a>
+                        </div>
+
+                        @if (User.IsInRole("User"))
+                        {
+                            <a asp-controller="Rent" asp-action="Rent" asp-route-carId="@item.CarId" asp-route-cost="@item.Cost" class="btn btn-warning" style="width:243px;">Rent a Car</a>
+                        }
+                        else
+                        {
+                            <a href="#" class="btn btn-danger" style="width:243px;">Sign in to rent</a>
+                        }
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>

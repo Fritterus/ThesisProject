@@ -1,0 +1,11 @@
+﻿@model int
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form asp-controller="UsersAccount" asp-action="Replenish" method="post">
+    <div class="form-group">
+        <label for="sum">Enter the amount</label>
+        <input name="sum" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Replenish</button>
+</form>

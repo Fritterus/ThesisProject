@@ -1,0 +1,36 @@
+﻿@model IEnumerable<CarSharing.Models.RequestsViewModel>
+
+<div class="card">
+    <h2 class="card-header text-center">Requests list</h2>
+    <table class="table">
+        <tr class="">
+            <th class="">UserName</th>
+            <th class="">Start Date</th>
+            <th class="">End Date</th>
+            <th class="">Cost</th>
+            <th class=""></th>
+            <th class=""></th>
+            <th class=""></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            @if (item.Status == 0)
+            {
+                <tr class="">
+                    @Html.HiddenFor(model => item.Id)
+                    <td class="">@item.UserName</td>
+                    <td class="">@item.StartDate</td>
+                    <td class="">@item.EndDate</td>
+                    <td class="">@item.TotalCost €</td>
+
+                    <td>
+                        <a asp-controller="Employee" asp-action="Confirm" asp-route-id="@item.Id" class="btn btn-success">Confirm</a>
+                    </td>
+                    <td>
+                        <a asp-controller="Employee" asp-action="Reject" asp-route-id="@item.Id" class="btn btn-danger">Reject</a>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+</div>

@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CarSharing</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow">
+            <div class="container">
+                <a class="navbar-brand text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-grow-1">
+
+                        @if (User.IsInRole("User"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="UsersAccount" asp-action="UsersAccount">Account</a>
+                            </li>
+                        }
+                        @if (User.IsInRole("Employee"))
+                        {
+
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Employee" asp-action="Requests">Requests</a>
+                            </li>
+
+                           
+
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Employee" asp-action="BookedCarsList">Booked cars list</a>
+                            </li>
+                        }
+                        @if (User.IsInRole("Admin"))
+                        {
+
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="UsersPage" asp-action="UsersPage">Users report</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="RolesPage" asp-action="Index">Roles report</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+
+                <div class="navbar">
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-light mx-3" asp-controller="Account" asp-action="Login">Sign in</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-controller="Account" asp-action="Register">Sign up</a>
+                            </li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <span class="text-light">@User.Identity.Name</span>
+                        <form method="post" asp-controller="Account" asp-action="Logout">
+                            <input class="btn btn-danger mx-3" type="submit" value="Sign out" />
+                        </form>
+                    }
+                </div>
+
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021 - CarSharing - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

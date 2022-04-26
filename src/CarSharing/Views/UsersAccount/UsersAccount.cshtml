@@ -1,0 +1,50 @@
+﻿@model CarSharing.Entities.User
+
+
+<div class="container">
+    <div class="">
+        <div class="col">
+            <div class="card">
+                <h2 class="card-header">
+                    User Account
+                </h2>
+                <div class="card-body">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label asp-for="FullName" class="input-group-text"></label>
+                        </div>
+                        <input type="text" class="form-control disabled" asp-for="FullName" />
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label asp-for="Email" class="input-group-text"></label>
+                        </div>
+                        <input type="text" class="form-control disabled" asp-for="Email" />
+                    </div>
+
+                    <div class="input-group my-3">
+                        <div class="input-group-prepend">
+                            <label asp-for="PhoneNumber" class="input-group-text"></label>
+                        </div>
+                        <input class="form-control disabled" asp-for="PhoneNumber" />
+                    </div>
+
+                    <div class="input-group my-3">
+                        <div class="input-group-prepend">
+                            <label asp-for="Money" class="input-group-text">Balance</label>
+                        </div>
+                        <input class="form-control disabled" asp-for="Money" />
+                    </div>
+
+                    <div class="form-row">
+                        <a class="btn btn-warning" asp-action="ChangePassword">Change password</a>
+                        <a class="btn btn-info mx-3" asp-controller="UsersAccount" asp-action="Replenish">Replenish balance</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+</div>
