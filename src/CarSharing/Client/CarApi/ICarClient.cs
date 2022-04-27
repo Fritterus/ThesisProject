@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 namespace CarSharing.Client.CarApi
 {
+    [BasePath("car")]
     public interface ICarClient
     {
         [Put("reset/{id}")]

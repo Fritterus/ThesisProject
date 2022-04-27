@@ -27,13 +27,9 @@ namespace CarSharing.CarApi
             {
                 options.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "Venue API",
+                    Title = "Car API",
                     Version = "v1",
                 });
-
-                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                options.IncludeXmlComments(xmlPath);
             });
         }
 
@@ -41,7 +37,7 @@ namespace CarSharing.CarApi
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TicketManagement.VenueApi v1"));
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CarApi v1"));
 
             app.UseAuthentication();
             app.UseHttpsRedirection();

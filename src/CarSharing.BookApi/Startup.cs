@@ -20,20 +20,13 @@ namespace CarSharing.BookApi
 
             services.AddDataLayerDependecies(Configuration.GetConnectionString("default"));
 
-            // Registering reast ease client
-            string userApi = Configuration["UserApiAddress"];
-
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "Venue API",
+                    Title = "Book API",
                     Version = "v1",
                 });
-
-                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                options.IncludeXmlComments(xmlPath);
             });
         }
 
@@ -41,7 +34,7 @@ namespace CarSharing.BookApi
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TicketManagement.VenueApi v1"));
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BookApi v1"));
 
             app.UseAuthentication();
             app.UseHttpsRedirection();

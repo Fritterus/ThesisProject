@@ -18,12 +18,17 @@ namespace CarSharing.CarApi.Controllers
         private readonly IRepository<Model> _modelRepository;
         private readonly IRepository<Car> _carRepository;
 
-        public BookController(UserManager<User> userManager, IRepository<Order> orderRepository, IRepository<Mark> markRepository, IRepository<Model> modelRepository)
+        public BookController(UserManager<User> userManager,
+                              IRepository<Order> orderRepository,
+                              IRepository<Mark> markRepository,
+                              IRepository<Model> modelRepository,
+                              IRepository<Car> carRepository)
         {
             _userManager = userManager;
             _orderRepository = orderRepository;
             _markRepository = markRepository;
             _modelRepository = modelRepository;
+            _carRepository = carRepository;
         }
 
         [HttpPut("rent/{carId}")]

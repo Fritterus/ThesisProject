@@ -8,6 +8,6 @@ namespace CarSharing.Client.CarApi
     public interface ICarStatusClient
     {
         [Put("reset/{id}")]
-        public Task Reset(int id);
+        public Task Reset([Path] int id);
     }
 }

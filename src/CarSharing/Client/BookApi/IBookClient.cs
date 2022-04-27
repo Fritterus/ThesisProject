@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarSharing.Client.BookApi
 {
-    [BaseAddress("rent")]
+    [BasePath("book")]
     [Header("Content-Type", "application/json")]
     public interface IBookClient
     {
