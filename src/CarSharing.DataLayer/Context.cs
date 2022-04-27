@@ -1,4 +1,5 @@
 ﻿using CarSharing.Entities;
+using CarSharing.Entities.DataBaseModels;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using CarSharing.Entities.DataBaseModels;
 using CarSharing.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

@@ -11,9 +11,6 @@ namespace CarSharing.Controllers
 {
     public class EmployeeController : Controller
     {
-        private readonly BookClient _bookClient;
-        private readonly CarClient _carClient;
-
         private readonly UserManager<User> _userManager;
         private readonly IRepository<Order> _orderRepository;
         private readonly IRepository<Car> _carRepository;
@@ -30,6 +27,7 @@ namespace CarSharing.Controllers
             _carModelRepository = carModelRepository;
         }
 
+        [HttpPut]
         public IActionResult BookedCarsList()
         {
             var car = _carRepository.GetAll().ToList();
@@ -55,13 +53,14 @@ namespace CarSharing.Controllers
             return View(carListViewModel);
         }
 
+        [HttpPut]
         public async Task<IActionResult> Confirm(int id)
         {
             var order = await _orderRepository.GetAsync(id);
             order.Status = OrderStatus.Confirmed;
 
             await _orderRepository.UpdateAsync(order);
-            return RedirectToAction("Requests", "Employee");
+            return Ok();
         }
 
         public async Task<IActionResult> Reject(int id)
@@ -70,7 +69,7 @@ namespace CarSharing.Controllers
             order.Status = OrderStatus.Awaiting;
 
             await _orderRepository.UpdateAsync(order);
-            return RedirectToAction("Requests", "Employee");
+            return Ok();
         }
 
         public async Task<IActionResult> Requests()

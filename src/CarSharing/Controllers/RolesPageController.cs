@@ -1,4 +1,5 @@
-﻿using CarSharing.Models;
+﻿using CarSharing.Entities.DataBaseModels;
+using CarSharing.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;

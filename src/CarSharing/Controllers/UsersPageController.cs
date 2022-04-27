@@ -1,4 +1,4 @@
-﻿using CarSharing.Entities;
+﻿using CarSharing.Entities.DataBaseModels;
 using CarSharing.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;

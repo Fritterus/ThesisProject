@@ -1,4 +1,5 @@
-﻿using CarSharing.Client.OrderApi;
+﻿using CarSharing.Client.BookApi;
+using CarSharing.Entities.DataBaseModels;
 using CarSharing.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -9,11 +10,11 @@ namespace CarSharing.OrderApi.Controllers
 
     public class RentController : Controller
     {
-        private readonly RentClient _rentClient;
+        private readonly IBookClient _bookClient;
 
-        public RentController(RentClient rentClient)
+        public RentController(IBookClient bookClient)
         {
-            _rentClient = rentClient;
+            _bookClient = bookClient;
         }
 
         [HttpGet]
@@ -40,7 +41,7 @@ namespace CarSharing.OrderApi.Controllers
                 TotalCost = (viewModel.EndDate - viewModel.StartDate).Days * viewModel.Cost,
             };
 
-            await _rentClient.RentAsync(order, viewModel.CarId);
+            await _bookClient.RentAsync(order, viewModel.CarId);
 
             return RedirectToAction("Index", "Home");
         }

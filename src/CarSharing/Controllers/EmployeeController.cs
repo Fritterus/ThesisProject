@@ -1,80 +1,43 @@
-﻿using CarSharing.Models;
-using Microsoft.AspNetCore.Identity;
+﻿using CarSharing.Client.BookApi;
+using CarSharing.Client.CarApi;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CarSharing.Controllers
 {
     public class EmployeeController : Controller
     {
-        private readonly UserManager<User> _userManager;
-        private readonly IRepository<Order> _orderRepository;
-        private readonly IRepository<Car> _carRepository;
-        private readonly IRepository<Mark> _markRepository;
-        private readonly IRepository<Model> _carModelRepository;
+        private readonly ICarClient _carClient;
+        private readonly IBookClient _bookClient;
 
-        public EmployeeController(UserManager<User> userManager, IRepository<Order> orderRepository, IRepository<Car> carRepository,
-           IRepository<Mark> markRepository, IRepository<Model> carModelRepository)
+        public EmployeeController(ICarClient carClient, IBookClient bookClient)
         {
-            _userManager = userManager;
-            _orderRepository = orderRepository;
-            _carRepository = carRepository;
-            _markRepository = markRepository;
-            _carModelRepository = carModelRepository;
+            _carClient = carClient;
+            _bookClient = bookClient;
         }
 
-        public IActionResult BookedCarsList()
+        public async Task <IActionResult> BookedCarsList()
         {
-            var car = _carRepository.GetAll().ToList();
-            var make = _markRepository.GetAll().ToList();
-            var carModel = _carModelRepository.GetAll().ToList();
+            var carList = await _bookClient.BookedCarsListAsync();
 
-            var carListViewModel = new List<CarListViewModel>();
-
-            foreach (var item in car)
-            {
-                carListViewModel.Add(new CarListViewModel
-                {
-                    CarId = item.Id,
-                    ReleaseDate = item.ReleaseDate,
-                    ImageURL = item.ImageURL,
-                    Cost = item.Cost,
-                    Status = item.Status,
-                    MarkName = make.Where(mke => mke.Id == item.MakeId).Select(item => item.Name).FirstOrDefault(),
-                    ModelName = carModel.Where(mdl => mdl.Id == item.CarModelId).Select(item => item.Name).FirstOrDefault(),
-                });
-            }
-
-            return View(carListViewModel);
+            return View(carList);
         }
 
         public async Task<IActionResult> Reset(int id)
         {
-            var car = await _carRepository.GetAsync(id);
-            car.Status = 1;
-
-            await _carRepository.UpdateAsync(car);
-
+            await _carClient.Reset(id);
             return RedirectToAction("BookedCarsList", "Employee");
         }
 
         public async Task<IActionResult> Confirm(int id)
         {
-            var order = await _orderRepository.GetAsync(id);
-            order.Status = 1;
-
-            await _orderRepository.UpdateAsync(order);
+            await _bookClient.Confirm(id);
             return RedirectToAction("Requests", "Employee");
         }
 
         public async Task<IActionResult> Reject(int id)
         {
-            var order = await _orderRepository.GetAsync(id);
-            order.Status = 2;
-
-            await _orderRepository.UpdateAsync(order);
+            await _bookClient.Reject(id);
             return RedirectToAction("Requests", "Employee");
         }
 
@@ -86,23 +49,9 @@ namespace CarSharing.Controllers
 
         public async Task<IActionResult> Requests()
         {
-            var order = _orderRepository.GetAll().ToList();
-            var requestsViewModel = new List<RequestsViewModel>();
+            var requestsModel = await _bookClient.RequestsAsync();
 
-            foreach(var item in order)
-            {
-                requestsViewModel.Add(new RequestsViewModel
-                {
-                    Id = item.Id,
-                    StartDate = item.StartDate,
-                    EndDate = item.EndDate,
-                    TotalCost = item.TotalCost,
-                    Status = item.Status,
-                    UserName = await _userManager.GetUserNameAsync(await _userManager.FindByIdAsync(item.UserId)),
-                });
-            }
-
-            return View(requestsViewModel);
+            return View(requestsModel);
         }
 
     }

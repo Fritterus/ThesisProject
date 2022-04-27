@@ -2,7 +2,7 @@
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 
-namespace CarSharing.BookApi
+namespace CarSharing.CarApi
 {
     public class Startup
     {

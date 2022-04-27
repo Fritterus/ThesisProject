@@ -1,3 +1,4 @@
 {
-  "OrderApiAddress": "https://localhost:5001"
+  "CarApiAddress": "https://localhost:5001",
+  "BookApiAddress": "https://localhost:5002"
 }

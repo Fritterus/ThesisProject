@@ -1,9 +1,9 @@
 ﻿using CarSharing.DataLayer.Services;
 using CarSharing.DataLayer.Services.Repository;
-using CarSharing.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using CarSharing.Entities.DataBaseModels;
 
 namespace CarSharing.DataLayer.Dependency
 {

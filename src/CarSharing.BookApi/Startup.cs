@@ -1,4 +1,5 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using CarSharing.DataLayer.Dependency;
+using Microsoft.OpenApi.Models;
 using System.Reflection;
 
 namespace CarSharing.BookApi
@@ -17,7 +18,6 @@ namespace CarSharing.BookApi
         {
             services.AddControllers();
 
-            services.AddBookApi();
             services.AddDataLayerDependecies(Configuration.GetConnectionString("default"));
 
             // Registering reast ease client

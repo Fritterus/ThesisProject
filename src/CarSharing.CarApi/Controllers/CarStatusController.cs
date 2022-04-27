@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CarSharing.CarApi.Controllers
 {
+    [ApiController]
+    [Route("carStatus")]
     public class CarStatusController : Controller
     {
         private readonly IRepository<Car> _carRepository;
@@ -14,6 +16,7 @@ namespace CarSharing.CarApi.Controllers
             _carRepository = carRepository;
         }
 
+        [HttpPut("reset/{id}")]
         public async Task<IActionResult> Reset(int id)
         {
             var car = await _carRepository.GetAsync(id);
